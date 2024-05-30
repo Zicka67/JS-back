@@ -1,3 +1,32 @@
+import { createReadStream } from "node:fs";
+import { createServer } from "node:http";
+
+//penser a bien mettre req et res pour la requete et la response 
+const server = createServer((req, res) => {
+    const url = new URL (req.url, `http://${req.headers.host}`)
+
+    res.write(`Bonjour ${url.searchParams.get('name')}`)
+    //pipe pour prendre d'un flux de lecture et l'envoyer dans un flux d'écriture
+    file.on('end', () => {
+        res.end()
+    })
+
+    // const file = createReadStream('index.html')
+    // res.writeHead(200, {
+    //     'Content-Type' : 'text/html'
+    // })
+    // file.pipe(res)
+
+    // file.on('end', () => {
+    //     res.end()
+    // })
+})
+server.listen('8888')
+
+
+
+
+
 //**Lire un ou plusieurs fichiers
 //**encoding pour lire le fichier en utf8 
 //**Promise.all pour lire plusieurs fichier en même temps avec le système de promesse
@@ -46,11 +75,11 @@
 // file.close()
 
 // ** test exercice
-import {readdir, stat} from 'node:fs/promises'
+// import {readdir, stat} from 'node:fs/promises'
 
-const files = await readdir('./', {withFileTypes: true})
-for (const file of files) {
-    const {size} = await stat(file.name)
-    console.log(`${file.isDirectory() ? 'D' : 'F'} - ${file.name} - ${size}o`)
-}
+// const files = await readdir('./', {withFileTypes: true})
+// for (const file of files) {
+//     const {size} = await stat(file.name)
+//     console.log(`${file.isDirectory() ? 'D' : 'F'} - ${file.name} - ${size}o`)
+// }
 
